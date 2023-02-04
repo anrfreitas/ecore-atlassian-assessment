@@ -4,6 +4,11 @@ WORKDIR /app
 
 EXPOSE 8080
 
-# ./mvnw dependency:go-offline
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+RUN ./mvnw install -DskipTests
 
 CMD (./mvnw spring-boot:run)
