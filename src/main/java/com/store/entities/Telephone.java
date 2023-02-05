@@ -2,18 +2,19 @@ package com.store.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,14 +32,13 @@ public class Telephone implements Serializable{
 	@Column(name="id")
 	private long id;
 
-	@JsonIgnore
-	private long customer_id;
-
 	@Column(name="phone", nullable = false)
 	@NotBlank(message="Type a phone")
 	private String phone;
 
-	// @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "customer_id")
-	// private Customer customer;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Customer customer;
 }

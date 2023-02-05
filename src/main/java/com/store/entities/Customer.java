@@ -1,11 +1,13 @@
 package com.store.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class Customer implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private long id;
 
@@ -37,8 +39,14 @@ public class Customer implements Serializable{
 	@Email(message="Type a valid email")
 	private String email;
 
-	@OneToMany(targetEntity = Telephone.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id", referencedColumnName = "id") // name = table.fk_name, referencedColumnName = currentTable.pk_name
-	private Set<Telephone> telephone;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="customer")
+    private List<Telephone> telephones;
+
+	// @REFERENCE
+	// description: not valid for the current structure, but leaving it here just as an example
+
+	// @OneToMany(targetEntity = Telephone.class, cascade = CascadeType.ALL)
+	// @JoinColumn(name = "customer_id", referencedColumnName = "id") // name = table.fk_name, referencedColumnName = currentTable.pk_name
+	// private Set<Telephone> telephone;
 
 }

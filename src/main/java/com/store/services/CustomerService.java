@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.entities.Customer;
-import com.store.entities.Telephone;
 import com.store.exceptions.ConflictException;
 import com.store.exceptions.NotFoundException;
 import com.store.repositories.CustomerRepository;
@@ -40,7 +39,8 @@ public class CustomerService {
     }
 
     public Customer updateById(Long id, Customer c) {
-        Customer obj = this.getById(id);
+        // Customer obj = this.getById(id);
+        Customer obj = cRepository.findById(id).orElseThrow(NotFoundException::new);
         obj.setName(c.getName());
         return cRepository.save(obj);
     }
@@ -48,12 +48,5 @@ public class CustomerService {
     public void deleteById(Long id) {
         Customer obj = this.getById(id);
         cRepository.delete(obj);
-    }
-
-    public void addTelephone(Long customerId, Telephone telephone) {
-        Customer c = cRepository.findById(customerId).orElseThrow(NotFoundException::new);
-        telephone.setCustomer_id(c.getId());
-        c.getTelephone().add(telephone);
-        cRepository.save(c);
     }
 }

@@ -1,5 +1,5 @@
 CREATE TABLE customer_telephone (
-	id int8 NOT NULL,
+	id SERIAL,
     customer_id int8 NOT NULL,
 	phone varchar(255) NOT NULL,
 

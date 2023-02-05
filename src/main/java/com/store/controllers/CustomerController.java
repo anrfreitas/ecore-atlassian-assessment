@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.store.entities.Customer;
 import com.store.entities.Telephone;
 import com.store.services.CustomerService;
+import com.store.services.TelephoneService;
 import com.store.transformer.CustomerSummaryTransformer;
 
 @RestController
@@ -30,7 +31,10 @@ import com.store.transformer.CustomerSummaryTransformer;
 public class CustomerController {
 
     @Autowired
-    private CustomerService service;
+    private CustomerService customerService;
+
+    @Autowired
+    private TelephoneService telephoneService;
 
     @GetMapping(
         value = "",
@@ -38,7 +42,7 @@ public class CustomerController {
     )
     @ResponseStatus(HttpStatus.OK)
     public List<CustomerSummaryTransformer> list() {
-        return service.listAll();
+        return customerService.listAll();
     }
 
     @GetMapping(
@@ -47,7 +51,7 @@ public class CustomerController {
     )
     @ResponseStatus(HttpStatus.OK)
     public Customer get(@PathVariable("id") Long id) {
-        return service.getById(id);
+        return customerService.getById(id);
     }
 
     @PostMapping(
@@ -58,8 +62,8 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Customer save(@Valid @RequestBody(required = true) Customer body) {
-        service.checkIfEmailExists(body.getEmail());
-        return service.save(body);
+        customerService.checkIfEmailExists(body.getEmail());
+        return customerService.save(body);
 
     }
 
@@ -70,13 +74,13 @@ public class CustomerController {
     )
     @ResponseStatus(HttpStatus.OK)
     public Customer update(@PathVariable("id") Long id, @RequestBody(required = true) Customer body) {
-        return service.updateById(id, body);
+        return customerService.updateById(id, body);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
-        service.deleteById(id);
+        customerService.deleteById(id);
     }
 
     @PostMapping(
@@ -90,6 +94,6 @@ public class CustomerController {
         @PathVariable("customerId") Long customerId,
         @Valid @RequestBody(required = true) Telephone telephone
     ) {
-        service.addTelephone(customerId, telephone);
+        telephoneService.addTelephone(customerId, telephone);
     }
 }
