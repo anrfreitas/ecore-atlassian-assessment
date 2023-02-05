@@ -1,12 +1,16 @@
 package com.store.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -15,7 +19,7 @@ import lombok.Data;
 
 @Data // Generate get-setters automatically :)
 @Entity(name="Customer")
-@Table(name="Customer")
+@Table(name="customer")
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +37,8 @@ public class Customer implements Serializable{
 	@Email(message="Type a valid email")
 	private String email;
 
-	@Column(name="telephone", nullable = true)
-	private String telephone;
+	@OneToMany(targetEntity = Telephone.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id", referencedColumnName = "id") // name = table.fk_name, referencedColumnName = currentTable.pk_name
+	private Set<Telephone> telephone;
 
 }

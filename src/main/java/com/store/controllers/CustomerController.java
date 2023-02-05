@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.store.entities.Customer;
+import com.store.entities.Telephone;
 import com.store.services.CustomerService;
 import com.store.transformer.CustomerSummaryTransformer;
 
@@ -76,5 +77,19 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
         service.deleteById(id);
+    }
+
+    @PostMapping(
+        value = "/{customerId}/telephone",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void addTelephone(
+        @PathVariable("customerId") Long customerId,
+        @Valid @RequestBody(required = true) Telephone telephone
+    ) {
+        service.addTelephone(customerId, telephone);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.entities.Customer;
+import com.store.entities.Telephone;
 import com.store.exceptions.ConflictException;
 import com.store.exceptions.NotFoundException;
 import com.store.repositories.CustomerRepository;
@@ -16,36 +17,43 @@ import com.store.transformer.CustomerSummaryTransformer;
 public class CustomerService {
 
     @Autowired
-    private CustomerRepository repository;
+    private CustomerRepository cRepository;
 
     public List<CustomerSummaryTransformer> listAll() {
-        return repository.findAll()
+        return cRepository.findAll()
             .stream()
             .map(c -> new CustomerSummaryTransformer().toCustomerSummaryTransformer(c))
             .collect(Collectors.toList());
     }
 
     public Customer getById(Long id) {
-        return repository.findById(id).orElseThrow(NotFoundException::new);
+        return cRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     public void checkIfEmailExists(String email) {
-        Integer count = repository.countEmailOccurrences(email);
+        Integer count = cRepository.countEmailOccurrences(email);
         if (count > 0) throw new ConflictException();
     }
 
     public Customer save(Customer c) {
-        return repository.save(c);
+        return cRepository.save(c);
     }
 
     public Customer updateById(Long id, Customer c) {
         Customer obj = this.getById(id);
         obj.setName(c.getName());
-        return repository.save(obj);
+        return cRepository.save(obj);
     }
 
     public void deleteById(Long id) {
         Customer obj = this.getById(id);
-        repository.delete(obj);
+        cRepository.delete(obj);
+    }
+
+    public void addTelephone(Long customerId, Telephone telephone) {
+        Customer c = cRepository.findById(customerId).orElseThrow(NotFoundException::new);
+        telephone.setCustomer_id(c.getId());
+        c.getTelephone().add(telephone);
+        cRepository.save(c);
     }
 }
