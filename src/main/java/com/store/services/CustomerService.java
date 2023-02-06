@@ -38,9 +38,7 @@ public class CustomerService {
     // @description: run once, then show only cached value
     @Cacheable(cacheNames = "customers", key = "#id")
     public Customer getById(Long id) {
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-        Date date = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(date));
+        this.printCurrentTimestamp(); // implemented this function to test caching system
         return cRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
@@ -78,5 +76,11 @@ public class CustomerService {
     @Scheduled(fixedDelay = 1000 * 15)
     public void emptyCustomersCache() {
         LOGGER.info("Emptying Customers cache...");
+    }
+
+    private void printCurrentTimestamp() {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        LOGGER.info(formatter.format(date));
     }
 }
