@@ -6,24 +6,3 @@ CREATE TABLE occurrence (
 );
 
 ALTER TABLE occurrence ALTER COLUMN created_at SET DEFAULT now();
-
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());
-INSERT into occurrence (created_at) values (now());

@@ -1,9 +1,17 @@
 package com.store.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.store.entities.Customer;
@@ -18,6 +26,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository cRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerService.class);
+
     public List<CustomerSummaryTransformer> listAll() {
         return cRepository.findAll()
             .stream()
@@ -25,7 +35,12 @@ public class CustomerService {
             .collect(Collectors.toList());
     }
 
+    // @description: run once, then show only cached value
+    @Cacheable(cacheNames = "customers", key = "#id")
     public Customer getById(Long id) {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date));
         return cRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
@@ -38,6 +53,8 @@ public class CustomerService {
         return cRepository.save(c);
     }
 
+    // @description: will actually run the method and update cache content
+    @CachePut(cacheNames = "customers", key = "#id")
     public Customer updateById(Long id, Customer c) {
         // Customer obj = this.getById(id);
         Customer obj = cRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -45,8 +62,21 @@ public class CustomerService {
         return cRepository.save(obj);
     }
 
+    // @description: if ran, will erase the cache entry
+    @CacheEvict(cacheNames = "customers", key = "#id")
     public void deleteById(Long id) {
         Customer obj = this.getById(id);
         cRepository.delete(obj);
+    }
+
+    /*
+        @description: cron defined to clean up cache after 15 seconds
+        the solution could've done using something else too
+        but I really wanted to put up a cronjob :)
+     */
+    @CacheEvict(cacheNames = "customers", allEntries = true)
+    @Scheduled(fixedDelay = 1000 * 15)
+    public void emptyCustomersCache() {
+        LOGGER.info("Emptying Customers cache...");
     }
 }
