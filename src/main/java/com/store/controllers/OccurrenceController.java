@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,6 +33,12 @@ public class OccurrenceController {
         @RequestParam(name = "orderBy") String orderBy
     ) {
         return occurrenceService.listAll(limit, page, getOrderByOption(orderBy));
+    }
+
+    @PostMapping(value = "")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void newOcurrence() {
+        occurrenceService.generateNewOcurrence();
     }
 
     private OrderBy getOrderByOption(String key) {

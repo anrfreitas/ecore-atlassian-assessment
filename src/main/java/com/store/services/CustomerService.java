@@ -73,7 +73,7 @@ public class CustomerService {
         but I really wanted to put up a cronjob :)
      */
     @CacheEvict(cacheNames = "customers", allEntries = true)
-    @Scheduled(fixedDelay = 1000 * 15)
+    @Scheduled(fixedDelay = 1000 * 120)
     public void emptyCustomersCache() {
         LOGGER.info("Emptying Customers cache...");
     }

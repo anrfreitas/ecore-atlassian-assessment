@@ -1,5 +1,7 @@
 services:
   postgres:
+    mem_limit: 512m
+    mem_reservation: 512m
     container_name: ecore_postgres
     image: postgres:14
     environment:
@@ -12,6 +14,23 @@ services:
       - 5432:5432
     networks:
       - local
+
+  rabbitmq:
+    mem_limit: 256m
+    mem_reservation: 256m
+    container_name: ecore_rabbitmq
+    image: rabbitmq:3-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=zero
+      - RABBITMQ_DEFAULT_PASS=secret
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+      - local
+
   springboot:
     container_name: ecore_springboot
     platform: linux/amd64
@@ -26,6 +45,8 @@ services:
 
 volumes:
   pgsql_data:
+    driver: local
+  rabbitmq:
     driver: local
 
 networks:

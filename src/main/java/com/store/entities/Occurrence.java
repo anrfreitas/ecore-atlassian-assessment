@@ -27,4 +27,10 @@ public class Occurrence implements Serializable {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    public Occurrence() {}
+
+    public Occurrence(Timestamp createdAt) {
+        this.setCreatedAt(createdAt);
+    }
+
 }

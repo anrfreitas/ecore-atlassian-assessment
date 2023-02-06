@@ -85,8 +85,7 @@ public class CustomerController {
 
     @PostMapping(
         value = "/{customerId}/telephone",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE
+        consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
