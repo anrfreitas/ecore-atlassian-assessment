@@ -39,7 +39,7 @@ public class Customer implements Serializable{
 	@Email(message="Type a valid email")
 	private String email;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="customer")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="customer") // Lazy - load only when needed
     private List<Telephone> telephones;
 
 	// @REFERENCE

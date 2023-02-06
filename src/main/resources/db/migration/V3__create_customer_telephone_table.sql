@@ -1,6 +1,6 @@
 CREATE TABLE customer_telephone (
 	id SERIAL,
-    customer_id int8 NOT NULL,
+    customer_id INTEGER NOT NULL,
 	phone varchar(255) NOT NULL,
 
     CONSTRAINT telephone_pkey PRIMARY KEY (id),
