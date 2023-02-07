@@ -5,3 +5,4 @@ CREATE TABLE customer (
 
 	CONSTRAINT customer_pkey PRIMARY KEY (id)
 );
+

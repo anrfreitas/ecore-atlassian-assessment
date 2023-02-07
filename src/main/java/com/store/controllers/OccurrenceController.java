@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.store.entities.Occurrence;
-import com.store.enums.OrderBy;
+import com.store.helpers.OrderByHelper;
 import com.store.services.OccurrenceService;
 
 @RestController
@@ -32,17 +32,12 @@ public class OccurrenceController {
         @RequestParam(name = "page") Integer page,
         @RequestParam(name = "orderBy") String orderBy
     ) {
-        return occurrenceService.listAll(limit, page, getOrderByOption(orderBy));
+        return occurrenceService.listAll(limit, page, OrderByHelper.getOrderByOption(orderBy));
     }
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void newOcurrence() {
         occurrenceService.generateNewOcurrence();
-    }
-
-    private OrderBy getOrderByOption(String key) {
-        if (key.toLowerCase().equals("asc")) return OrderBy.ASC;
-        return OrderBy.DESC;
     }
 }

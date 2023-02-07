@@ -2,7 +2,8 @@
 
 This project was created to assess my skills using Java and Springboot.
 
-The infrastructure was created using Docker and Docker-compose, and you can bring it up live by running the commmand `docker-compose up -d`.
+The infrastructure was created using Docker and Docker-compose, and you can bring it up live by running the following commmand:
+- `docker-compose up -d`
 
 The project will be running on port `8080`, and it'll be using `/api` endpoint prefix.
 
@@ -13,7 +14,7 @@ The project will be running on port `8080`, and it'll be using `/api` endpoint p
 - Queueing (Pub/Sub), Filtering, Paging, Sorting operations (Occurrence RestController)
 - Data Validation Example through DTO (Hello RestController)
 - Custom Exceptions implementation (ConflictExeption and NotFoundException)
-- `@TODO` - unit and integration tests
+- Unit and Integration tests (Transformers, Helpers, RestControllers)
 
 ### Code Infrastructure
 - Database System: Postgres 14
