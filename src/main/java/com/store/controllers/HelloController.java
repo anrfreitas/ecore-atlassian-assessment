@@ -13,7 +13,11 @@ import javax.validation.Valid;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,12 +25,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.store.configs.profiles.EnvironmentInterface;
 import com.store.dto.HelloWorldDTO;
+import com.store.services.implementations.HelloWorldServiceInterface;
+import com.store.services.scopes.HelloWorldPrototype;
+import com.store.services.scopes.HelloWorldSingleton;
 
 import net.minidev.json.JSONObject;
 
+@Scope("prototype") // it won't be a singleton, we'll create a new instance for each call now
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/hello")
+@PropertySource("classpath:application.properties") // just demonstrating how to load a different properties file :)
 public class HelloController {
 
     @Autowired
@@ -35,9 +46,59 @@ public class HelloController {
     @Value("${spring.devtools.remote.secret}")
     private String springDevtoolsRemoteSecret;
 
+    @Autowired
+    @Qualifier("helloWorldServiceV1")
+    private HelloWorldServiceInterface hwServiceV1;
+
+    @Autowired
+    @Qualifier("helloWorldServiceV2")
+    private HelloWorldServiceInterface hwServiceV2;
+
+    @Autowired
+    private HelloWorldServiceInterface hwServicePrimary;
+
+    @Autowired
+    private HelloWorldSingleton hwSingleton;
+
+    @Autowired
+    private HelloWorldPrototype hwPrototype;
+
+    // Since there will be only one instance due @Profile settings, we don't need to apply @Qualifiers
+    @Autowired
+    private EnvironmentInterface environmentInterface;
+
     @GetMapping("/world")
     public String getTest() {
-        return "It works!";
+        System.out.println(environmentInterface.getHelloWorldMessage());
+        return environmentInterface.getItWorksMessage();
+    }
+
+    @GetMapping("/world/v1")
+    public String getTestV1() {
+        return hwServiceV1.getMessage();
+    }
+
+    @GetMapping("/world/v2")
+    public String getTestV2() {
+        return hwServiceV2.getMessage();
+    }
+
+    @GetMapping("/world/primary")
+    public String getTestPrimary() {
+        return hwServicePrimary.getMessage();
+    }
+
+    @GetMapping("/world/scopes")
+    public JSONObject getTestScopes() {
+        JSONObject obj = new JSONObject();
+        obj.put("Singleton", hwSingleton.getScopedValue());
+        obj.put("Prototype", hwPrototype.getScopedValue());
+        return obj;
+    }
+
+    @GetMapping("/world/profile")
+    public String getTestProfile() {
+        return environmentInterface.getEnvironment();
     }
 
     @PostMapping("/world")

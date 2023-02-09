@@ -9,6 +9,126 @@
 			"name": "Hello",
 			"item": [
 				{
+					"name": "Qualifiers",
+					"item": [
+						{
+							"name": "Hello World! V1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/hello/world/v1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"hello",
+										"world",
+										"v1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Hello World! V2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/hello/world/v2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"hello",
+										"world",
+										"v2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Hello World! Primary",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/hello/world/primary",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"hello",
+										"world",
+										"primary"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Others",
+					"item": [
+						{
+							"name": "Hello World! Scopes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/hello/world/scopes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"hello",
+										"world",
+										"scopes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Hello World! Profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/hello/world/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"hello",
+										"world",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Hello World!",
 					"request": {
 						"method": "GET",
