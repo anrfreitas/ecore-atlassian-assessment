@@ -129,25 +129,66 @@
 					]
 				},
 				{
-					"name": "Hello World!",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/hello/world",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"hello",
-								"world"
-							]
+					"name": "Multithreading",
+					"item": [
+						{
+							"name": "Get Customers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/threading/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"threading",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Process Customers CSV",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/home/andre-freitas/Desktop/customers1.csv"
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/home/andre-freitas/Desktop/customers2.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/threading/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"threading",
+										"customers"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Hello World!",
@@ -246,6 +287,28 @@
 								"api",
 								"hello",
 								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hello World! Challenge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hello/world/challenge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hello",
+								"world",
+								"challenge"
 							]
 						}
 					},

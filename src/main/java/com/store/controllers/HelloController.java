@@ -195,4 +195,53 @@ public class HelloController {
         flyway.clean(); // Cleaning database
         flyway.migrate(); // Migrating stuff
     }
+
+    @GetMapping("/world/challenge")
+    public List<Integer> doChallenge() {
+        // Example 1
+        // Input: nums = [2,7,11,15], target = 9
+        // Output: [0,1]
+
+        // Example 2
+        // Input: nums = [3,2,4], target = 6
+        // Output: [1,2]
+
+        int[] col = new int[]{2,7,11,15};
+        int target = 9;
+
+        List<Integer> s = new ArrayList<Integer>();
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+
+        int i = 0;
+        for (i = 0; i < col.length; i++) {
+            int diff = target - col[i];
+            if (diff > 0)
+                s.add(diff);
+        }
+
+        List<Integer> values = new ArrayList<Integer>();
+        for (i = 0; i < s.size(); i++) {
+            int cur = s.get(i);
+            int diff = target - cur;
+            if(s.contains(diff) && cur != diff) {
+                values.add(cur);
+                values.add(diff);
+            }
+        }
+
+        for (i = 0; i < col.length; i++) {
+            if (values.contains(col[i])) indexes.add(i);
+        }
+
+        return indexes;
+
+        // Integer[] list = new Integer[]{0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,4,4,5,7,7,7,8,8,8};
+        // List<Integer> nonDuplicated = new ArrayList<Integer>();
+
+        // for (Integer item: list) {
+        //     if (!nonDuplicated.contains(item)) nonDuplicated.add(item);
+        // }
+
+        // return nonDuplicated;
+    }
 }

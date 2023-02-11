@@ -13,6 +13,7 @@ The project will be running on port `8080`, and it'll be using `/api` endpoint p
 - Transformer implementation (CustomerSummaryTransformer)
 - Queueing (Pub/Sub), Filtering, Paging, Sorting operations (Occurrence RestController)
 - Data Validation Example through DTO (Hello RestController)
+- Multi threading Examples (Threading RestController)
 - Custom Exceptions implementation (ConflictExeption and NotFoundException)
 - Unit and Integration tests (Transformers, Helpers, RestControllers)
 
