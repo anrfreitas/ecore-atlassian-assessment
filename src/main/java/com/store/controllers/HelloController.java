@@ -3,6 +3,7 @@ package com.store.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -197,7 +198,7 @@ public class HelloController {
     }
 
     @GetMapping("/world/challenge")
-    public List<Integer> doChallenge() {
+    public HashSet<Integer> doChallenge() {
         // Example 1
         // Input: nums = [2,7,11,15], target = 9
         // Output: [0,1]
@@ -209,21 +210,22 @@ public class HelloController {
         int[] col = new int[]{2,7,11,15};
         int target = 9;
 
-        List<Integer> s = new ArrayList<Integer>();
-        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        List<Integer> set = new ArrayList<Integer>();
+        HashSet<Integer> hSet = new HashSet<Integer>();
+        HashSet<Integer> indexes = new HashSet<Integer>();
 
         int i = 0;
         for (i = 0; i < col.length; i++) {
+            hSet.add(col[i]);
             int diff = target - col[i];
-            if (diff > 0)
-                s.add(diff);
+            if (diff > 0) set.add(diff);
         }
 
-        List<Integer> values = new ArrayList<Integer>();
-        for (i = 0; i < s.size(); i++) {
-            int cur = s.get(i);
+        HashSet<Integer> values = new HashSet<Integer>();
+        for (i = 0; i < set.size(); i++) {
+            int cur = set.get(i);
             int diff = target - cur;
-            if(s.contains(diff) && cur != diff) {
+            if(hSet.contains(diff) && cur != diff) {
                 values.add(cur);
                 values.add(diff);
             }
