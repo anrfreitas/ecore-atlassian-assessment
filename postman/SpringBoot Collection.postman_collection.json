@@ -191,6 +191,160 @@
 					]
 				},
 				{
+					"name": "Employee (noSQL)",
+					"item": [
+						{
+							"name": "Get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/employee",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"employee"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/employee/63e904d35b90ca0533fd16cf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"employee",
+										"63e904d35b90ca0533fd16cf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by Age",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/employee/range?from=25&to=50",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"employee",
+										"range"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "25"
+										},
+										{
+											"key": "to",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by Name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/employee/name?name=lano",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"employee",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "lano"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Fulano\",\n    \"age\": 3,\n    \"salary\": 3000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/employee",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"employee"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/employee/63e904705b90ca0533fd16cd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"employee",
+										"63e904705b90ca0533fd16cd"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Hello World!",
 					"request": {
 						"method": "POST",

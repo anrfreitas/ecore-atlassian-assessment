@@ -8,11 +8,8 @@ import org.springframework.cache.annotation.EnableCaching;
 // Scanners
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import com.store.controllers.CustomerController;
-import com.store.controllers.HelloController;
-import com.store.controllers.OccurrenceController;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,8 +17,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableConfigurationProperties
 @EntityScan(basePackages = "com.store.entities")
 @EnableJpaRepositories(basePackages = "com.store.repositories")
+@EnableMongoRepositories(basePackages = "com.store.repositories")
 @ComponentScan({"com.store", "com.store.services"})
-@SpringBootApplication(scanBasePackageClasses = { HelloController.class, CustomerController.class, OccurrenceController.class })
+@SpringBootApplication(scanBasePackages = "com.store.controllers")
 @EnableCaching
 @EnableScheduling
 public class MainApplication {

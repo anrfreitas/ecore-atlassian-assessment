@@ -12,6 +12,7 @@ About the observability implementation, Prometheus is running on port `9090` and
 ### Features
 - Array, Object, Collection, String manipulation (Hello RestController)
 - CRUD operations with entity-relationship, Cronjob and caching implementation (Customer RestController)
+- CRUD operations with non structured database a.k.a MongoDB (Employee RestController)
 - Transformer implementation (CustomerSummaryTransformer)
 - Queueing (Pub/Sub), Filtering, Paging, Sorting operations (Occurrence RestController)
 - Data Validation Example through DTO (Hello RestController)
@@ -21,7 +22,8 @@ About the observability implementation, Prometheus is running on port `9090` and
 - Observability using Spring Actuator connected to Micrometer Prometheus and Grafana
 
 ### Code Infrastructure
-- Database System: Postgres 14
+- Relational Database System: Postgres 14
+- Non Relational Database System: MongoDB
 - Database and Migration features - Flyway
 - Message Queuing System - RabbitMQ Alpine
 - Observability: Spring Actuator, Prometheus and Grafana

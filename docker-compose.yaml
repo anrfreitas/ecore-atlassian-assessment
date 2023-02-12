@@ -15,6 +15,20 @@ services:
     networks:
       - local
 
+  mongo:
+    image: mongo
+    mem_limit: 512m
+    mem_reservation: 512m
+    container_name: ecore_mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: employee
+    volumes:
+            - ./config/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - local
+
   rabbitmq:
     mem_limit: 256m
     mem_reservation: 256m

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Primary
 @Service
-public class HelloWorldServiceV1 implements HelloWorldServiceInterface {
+public class HelloWorldServiceV1 implements HelloWorldService {
 
     public String getMessage() {
         return "Hello World V1!";

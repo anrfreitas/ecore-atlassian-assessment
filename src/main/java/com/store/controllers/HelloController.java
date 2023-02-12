@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.store.configs.profiles.EnvironmentInterface;
 import com.store.dto.HelloWorldDTO;
-import com.store.services.implementations.HelloWorldServiceInterface;
+import com.store.services.implementations.HelloWorldService;
 import com.store.services.scopes.HelloWorldPrototype;
 import com.store.services.scopes.HelloWorldSingleton;
 
@@ -49,14 +49,14 @@ public class HelloController {
 
     @Autowired
     @Qualifier("helloWorldServiceV1")
-    private HelloWorldServiceInterface hwServiceV1;
+    private HelloWorldService hwServiceV1;
 
     @Autowired
     @Qualifier("helloWorldServiceV2")
-    private HelloWorldServiceInterface hwServiceV2;
+    private HelloWorldService hwServiceV2;
 
     @Autowired
-    private HelloWorldServiceInterface hwServicePrimary;
+    private HelloWorldService hwServicePrimary;
 
     @Autowired
     private HelloWorldSingleton hwSingleton;
