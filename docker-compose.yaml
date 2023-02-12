@@ -31,6 +31,27 @@ services:
     networks:
       - local
 
+  prometheus:
+    container_name: ecore_prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - 9090:9090
+    networks:
+      - local
+
+  grafana:
+    container_name: ecore_grafana
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - local
+
   springboot:
     container_name: ecore_springboot
     platform: linux/amd64
@@ -48,6 +69,8 @@ volumes:
     driver: local
   rabbitmq:
     driver: local
+  prometheus_data:
+  grafana_data:
 
 networks:
   local:

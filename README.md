@@ -7,6 +7,8 @@ The infrastructure was created using Docker and Docker-compose, and you can brin
 
 The project will be running on port `8080`, and it'll be using `/api` endpoint prefix.
 
+About the observability implementation, Prometheus is running on port `9090` and Grafana is running on port `3000` as usual. The user and password is `admin`.
+
 ### Features
 - Array, Object, Collection, String manipulation (Hello RestController)
 - CRUD operations with entity-relationship, Cronjob and caching implementation (Customer RestController)
@@ -16,11 +18,13 @@ The project will be running on port `8080`, and it'll be using `/api` endpoint p
 - Multi threading Examples (Threading RestController)
 - Custom Exceptions implementation (ConflictExeption and NotFoundException)
 - Unit and Integration tests (Transformers, Helpers, RestControllers)
+- Observability using Spring Actuator connected to Micrometer Prometheus and Grafana
 
 ### Code Infrastructure
 - Database System: Postgres 14
 - Database and Migration features - Flyway
 - Message Queuing System - RabbitMQ Alpine
+- Observability: Spring Actuator, Prometheus and Grafana
 - Caching System - Springboot Container
 
 ### Important
