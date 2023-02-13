@@ -18,7 +18,7 @@ About the observability implementation, Prometheus is running on port `9090` and
 - Data Validation Example through DTO (Hello RestController)
 - Multi threading Examples (Threading RestController)
 - Custom Exceptions implementation (ConflictExeption and NotFoundException)
-- Unit and Integration tests (Transformers, Helpers, RestControllers)
+- Unit and Integration tests (Transformers, Helpers, Services, RestControllers)
 - Observability using Spring Actuator connected to Micrometer Prometheus and Grafana
 
 ### Code Infrastructure
@@ -28,6 +28,7 @@ About the observability implementation, Prometheus is running on port `9090` and
 - Message Queuing System - RabbitMQ Alpine
 - Observability: Spring Actuator, Prometheus and Grafana
 - Caching System - Springboot Container
+- Tests - JUnit and Mockito
 
 ### Important
 

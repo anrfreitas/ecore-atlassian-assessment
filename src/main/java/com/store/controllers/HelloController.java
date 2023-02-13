@@ -3,9 +3,11 @@ package com.store.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -199,51 +201,150 @@ public class HelloController {
 
     @GetMapping("/world/challenge")
     public HashSet<Integer> doChallenge() {
-        // Example 1
-        // Input: nums = [2,7,11,15], target = 9
-        // Output: [0,1]
 
-        // Example 2
-        // Input: nums = [3,2,4], target = 6
-        // Output: [1,2]
+        /*
+            Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+            You may assume that each input would have exactly one solution, and you may not use the same element twice.
+            You can return the answer in any order.
 
-        int[] col = new int[]{2,7,11,15};
-        int target = 9;
+            Example 1
+            Input: nums = [2,7,11,15], target = 9
+            Output: [0,1]
 
-        List<Integer> set = new ArrayList<Integer>();
-        HashSet<Integer> hSet = new HashSet<Integer>();
-        HashSet<Integer> indexes = new HashSet<Integer>();
+            Example 2
+            Input: nums = [3,2,4], target = 6
+            Output: [1,2]
+        */
 
-        int i = 0;
-        for (i = 0; i < col.length; i++) {
-            hSet.add(col[i]);
-            int diff = target - col[i];
-            if (diff > 0) set.add(diff);
+        // int[] col = new int[]{2,7,11,15};
+        // int target = 9;
+
+        // List<Integer> set = new ArrayList<Integer>();
+        // HashSet<Integer> hSet = new HashSet<Integer>();
+        // HashSet<Integer> indexes = new HashSet<Integer>();
+
+        // int i = 0;
+        // for (i = 0; i < col.length; i++) {
+        //     hSet.add(col[i]);
+        //     int diff = target - col[i];
+        //     if (diff > 0) set.add(diff);
+        // }
+
+        // HashSet<Integer> values = new HashSet<Integer>();
+        // for (i = 0; i < set.size(); i++) {
+        //     int cur = set.get(i);
+        //     int diff = target - cur;
+        //     if(hSet.contains(diff) && cur != diff) {
+        //         values.add(cur);
+        //         values.add(diff);
+        //     }
+        // }
+
+        // for (i = 0; i < col.length; i++) {
+        //     if (values.contains(col[i])) indexes.add(i);
+        // }
+
+        // return indexes;
+
+        // #####################################################################################
+        // Finding duplicate elements in the array
+
+        // Integer[] list = new Integer[]{0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,4,4,5,7,7,7,8,8,8};
+
+        // # Solution 1 - Big O(n^2)
+            // List<Integer> nonDuplicated = new ArrayList<Integer>();
+
+            // for (Integer item: list) {
+            //     if (!nonDuplicated.contains(item)) nonDuplicated.add(item);
+            // }
+
+        // # Solution 2 - Big O(n)
+            // HashSet<Integer> nonDuplicated = new HashSet<Integer>();
+            // for (Integer item: list) {
+            //     nonDuplicated.add(item);
+            // }
+
+            // return nonDuplicated;
+
+        // #####################################################################################
+        // Finding elements that appears only once in the array - Big O(n log(n))
+
+        // int arr[] = { 1,1,1,5,6,1,1,1 };
+        // Arrays.sort(arr);
+        // int len = arr.length;
+        // int lastIndex = len - 1;
+        // HashSet<Integer> uniqueElements = new HashSet<>();
+
+        // // Ignoring the first and the last element, we'll check 'em later
+        // for (int i = 1; i < lastIndex; i++)
+        // {
+        //     if (arr[i] != arr[i-1] && arr[i] != arr[i+1])
+        //         uniqueElements.add(arr[i]);
+        // }
+
+        // // Checking the first element
+        // if (arr[0] != arr[1]) uniqueElements.add(arr[0]);
+
+        // // Checking the last element
+        // if (arr[lastIndex] != arr[len - 2]) uniqueElements.add(arr[lastIndex]);
+
+        // return uniqueElements;
+
+        // #####################################################################################
+        // Find first non-repeating element in a given Array - Big O(n)
+
+        // int arr[] = { 9,9,2,3,4,2,5 };
+        // int n = arr.length;
+
+        // Map<Integer, Integer> m = new HashMap<>();
+        // for (int i = 0; i < n; i++) {
+        //     if (m.containsKey(arr[i])) {
+        //         m.put(arr[i], m.get(arr[i]) + 1);
+        //     }
+        //     else {
+        //         m.put(arr[i], 1);
+        //     }
+        // }
+
+        // for (int i = 0; i < n; i++)
+        //     if (m.get(arr[i]) == 1) {
+        //         System.out.println(arr[i]);
+        //         break;
+        //     }
+        // System.out.println(-1);
+        // return null;
+
+        // #####################################################################################
+        // Find element in a given sorted Array - Big O(log n)
+
+        int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+        int input = 8;
+
+        int mid = (int) Math.floor(arr.length / 2);
+        int initPoint = 0;
+        int maxPoint = arr.length - 1;
+
+        if (arr[mid] == input) {
+            System.out.println(input);
+            return null;
+        }
+        else if (arr[mid] > input) {
+            maxPoint = mid;
+        }
+        else {
+            initPoint = mid + 1;
         }
 
-        HashSet<Integer> values = new HashSet<Integer>();
-        for (i = 0; i < set.size(); i++) {
-            int cur = set.get(i);
-            int diff = target - cur;
-            if(hSet.contains(diff) && cur != diff) {
-                values.add(cur);
-                values.add(diff);
+        int steps = 0;
+        for (int i = initPoint; i < maxPoint; i++) {
+            steps++;
+            if (arr[i] == input) {
+                System.out.println("steps: " + steps);
+                System.out.println(arr[i]);
+                return null;
             }
         }
 
-        for (i = 0; i < col.length; i++) {
-            if (values.contains(col[i])) indexes.add(i);
-        }
-
-        return indexes;
-
-        // Integer[] list = new Integer[]{0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,4,4,5,7,7,7,8,8,8};
-        // List<Integer> nonDuplicated = new ArrayList<Integer>();
-
-        // for (Integer item: list) {
-        //     if (!nonDuplicated.contains(item)) nonDuplicated.add(item);
-        // }
-
-        // return nonDuplicated;
+        return null;
     }
 }
