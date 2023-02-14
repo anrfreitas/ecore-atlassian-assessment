@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,8 +28,10 @@ public class OccurrenceService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    private Queue queue;
+    @Value("${spring.rabbitmq.ocurrences_exchange_name}")
+    public String EXCHANGE_NAME;
+
+    private static final String CREATE_OCCURRENCE_ROUTING_KEY = "occurences.new";
 
     public Page<Occurrence> listAll(Integer limit, Integer page, OrderBy orderBy) {
         Sort sort;
@@ -51,6 +54,6 @@ public class OccurrenceService {
          */
         JSONObject obj = new JSONObject();
         obj.put("dt", formatter.format(date));
-        rabbitTemplate.convertAndSend(this.queue.getName(), obj);
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, CREATE_OCCURRENCE_ROUTING_KEY, obj);
     }
 }
