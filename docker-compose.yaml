@@ -19,13 +19,44 @@ services:
     image: mongo
     mem_limit: 512m
     mem_reservation: 512m
+    restart: always
     container_name: ecore_mongo
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+    depends_on:
+      - mongo2
+      - mongo3
+    links:
+      - mongo2
+      - mongo3
     ports:
       - 27017:27017
     environment:
       MONGO_INITDB_DATABASE: employee
     volumes:
-            - ./config/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./config/mongo/rs-init.sh:/scripts/rs-init.sh
+      - ./config/mongo/init.js:/scripts/init.js
+    networks:
+      - local
+
+  mongo2:
+    image: mongo
+    mem_limit: 512m
+    mem_reservation: 512m
+    container_name: ecore_mongo2
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+    ports:
+      - 27018:27017
+    networks:
+      - local
+
+  mongo3:
+    image: mongo
+    mem_limit: 512m
+    mem_reservation: 512m
+    container_name: ecore_mongo3
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+    ports:
+      - 27019:27017
     networks:
       - local
 
