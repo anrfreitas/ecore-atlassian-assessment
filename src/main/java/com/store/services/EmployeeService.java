@@ -1,6 +1,7 @@
 package com.store.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,10 @@ public class EmployeeService {
             .findById(employee.getBoss().getId())
             .orElseThrow(() -> new IllegalArgumentException("Employee does not exist"));
 
+            int noBosses = getNumberBossLevels(boss, 0);
+            if (noBosses >= 2)
+                throw new IllegalArgumentException("You cannot nest bosses to more than 2 levels");
+
             employee.setBoss(boss);
         }
 
@@ -46,5 +51,14 @@ public class EmployeeService {
 
     public void deleteById(String id) {
         employeeRepository.deleteById(id);
+    }
+
+    // @description: recursive function to get number of bosses over this user
+    private Integer getNumberBossLevels(Employee e, int count) {
+        if (e.getBoss() == null) return count;
+        else {
+            count++;
+            return getNumberBossLevels(e.getBoss(), count);
+        }
     }
 }
